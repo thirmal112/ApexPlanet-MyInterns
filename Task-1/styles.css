@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    background-color: #e3eaf2; 
+    color: #333; 
+    font-family: Arial, sans-serif; 
+    font-size: 16px; 
+    line-height: 1.5; 
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px; 
+}
+
+/* Main wrapper for content */
+.container {
+    background-color: #ffffff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+    max-width: 800px; 
+    width: 100%; 
+}
+/* Headings styling */
+h1 {
+    font-size: 2em; 
+    color: #1a237e; 
+    margin-bottom: 10px; 
+}
+
+h2 {
+    font-size: 1.5em; 
+    color: #3949ab; 
+    margin-bottom: 8px; 
+}
+
+h3 {
+    font-size: 1.2em;
+    color: #5c6bc0; 
+    margin-bottom: 12px; 
+}
+
+/* Paragraph styling */
+p {
+    margin-bottom: 12px; 
+}
+
+/* Link styling */
+a {
+    color: #0d47a1; 
+    text-decoration: none; 
+}
+
+a:hover {
+    text-decoration: underline; 
+}
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.button button {
+    background-color: #1a237e;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(26, 35, 126, 0.4);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    margin-right: 12px;
+}
+
+.button button:hover {
+    background-color: #3949ab;
+    box-shadow: 0 6px 12px rgba(57, 73, 171, 0.6);
+    transform: translateY(-2px);
+}
+
+.button button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.8);
+}
+
+.container {
+    padding: 30px 40px;
+}
+
+.content p {
+    font-size: 1.1em;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+.highlight-link {
+    background-color: yellow;
+    color: darkblue;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.highlight-link:hover {
+    background-color: orange;
+    color: white;
+    text-decoration: underline;
+}
