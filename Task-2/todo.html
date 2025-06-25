@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic To-Do List</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <h1>My Website</h1>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="todo.html" class="active">To-Do List</a></li>
+        <li><a href="index.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="todo-list" aria-label="To-Do List Section">
+      <h2>My To-Do List</h2>
+      <form id="todo-form" aria-describedby="todo-form-message" novalidate>
+        <input type="text" id="todo-input" placeholder="Add a new task" aria-label="Add a new task" required />
+        <button type="submit">Add</button>
+      </form>
+      <ul id="todo-items" aria-live="polite" aria-relevant="additions removals"></ul>
+      <div id="todo-form-message" role="alert" aria-live="polite" style="margin-top: 1rem; font-weight: 600;"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Website</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Add example tasks on page load
+    document.addEventListener("DOMContentLoaded", function () {
+      const exampleTasks = [
+        { text: "Buy groceries", completed: false },
+        { text: "Complete project report", completed: false },
+        { text: "Call the bank", completed: false },
+        { text: "Schedule meeting with team", completed: false },
+        { text: "Exercise for 30 minutes", completed: false }
+      ];
+
+      const todoItems = document.getElementById("todo-items");
+
+      exampleTasks.forEach(task => {
+        // Check if task already exists in localStorage to avoid duplicates
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        if (!tasks.some(t => t.text === task.text)) {
+          tasks.push(task);
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+      });
+
+      // Clear current list and reload from localStorage
+      todoItems.innerHTML = "";
+      let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      savedTasks.forEach(task => {
+        const li = document.createElement("li");
+        li.className = task.completed ? "completed" : "";
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
+        li.style.padding = "0.5rem";
+        li.style.borderBottom = "1px solid #ccc";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+        checkbox.setAttribute("aria-label", "Mark task as completed");
+        checkbox.addEventListener("change", function () {
+          li.classList.toggle("completed");
+          task.completed = checkbox.checked;
+          let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+          tasks = tasks.map(t => (t.text === task.text ? task : t));
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+        });
+
+        const taskSpan = document.createElement("span");
+        taskSpan.textContent = task.text;
+        taskSpan.style.flex = "1";
+        taskSpan.style.marginLeft = "0.5rem";
+        taskSpan.style.cursor = "pointer";
+        taskSpan.setAttribute("tabindex", "0");
+        taskSpan.setAttribute("role", "textbox");
+        taskSpan.setAttribute("aria-label", "Edit task");
+        taskSpan.addEventListener("dblclick", () => {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.value = task.text;
+          input.style.flex = "1";
+          input.style.marginLeft = "0.5rem";
+
+          function saveEdit() {
+            const newText = input.value.trim();
+            if (newText) {
+              task.text = newText;
+              taskSpan.textContent = newText;
+              let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+              tasks = tasks.map(t => (t.text === task.text ? task : t));
+              localStorage.setItem("tasks", JSON.stringify(tasks));
+            }
+            taskSpan.style.display = "";
+            input.remove();
+          }
+
+          input.addEventListener("blur", saveEdit);
+          input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              saveEdit();
+            } else if (e.key === "Escape") {
+              taskSpan.style.display = "";
+              input.remove();
+            }
+          });
+
+          taskSpan.style.display = "none";
+          taskSpan.parentNode.insertBefore(input, taskSpan);
+          input.focus();
+        });
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.className = "remove-btn";
+        removeBtn.setAttribute("aria-label", "Remove task");
+        removeBtn.addEventListener("click", function () {
+          todoItems.removeChild(li);
+          let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+          tasks = tasks.filter(t => t.text !== task.text);
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+        });
+
+        li.appendChild(checkbox);
+        li.appendChild(taskSpan);
+        li.appendChild(removeBtn);
+        todoItems.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>

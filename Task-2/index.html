@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Form</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <h1>My Website</h1>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="todo.html">To-Do List</a></li>
+        <li><a href="index.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="contact-form" aria-label="Contact form section">
+      <h2>Contact Us</h2>
+      <form id="form" aria-describedby="form-message" novalidate>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required aria-required="true" aria-describedby="name-error" />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-error" />
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required aria-required="true" aria-describedby="message-error"></textarea>
+
+        <button type="submit">Submit</button>
+        <button type="reset" id="reset-btn">Reset</button>
+      </form>
+      <div id="form-message" role="alert" aria-live="polite" style="margin-top: 1rem; font-weight: 600;"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Website </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
